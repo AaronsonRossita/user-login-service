@@ -1,7 +1,7 @@
 package com.userLogin.security.filter;
 
 
-import com.userLogin.security.MyUserDetailsService;
+import com.userLogin.security.CustomUserDetailsService;
 import com.userLogin.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -43,7 +43,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
 
@@ -57,3 +57,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 }
+
+
+
+

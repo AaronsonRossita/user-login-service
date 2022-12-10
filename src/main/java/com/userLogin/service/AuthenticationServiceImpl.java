@@ -1,7 +1,8 @@
 package com.userLogin.service;
 
-import com.userLogin.security.MyUserDetailsService;
+import com.userLogin.security.CustomUserDetailsService;
 import com.userLogin.security.model.AuthenticationRequest;
+import com.userLogin.security.model.AuthenticationResponse;
 import com.userLogin.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,18 +11,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticationServiceImpl implements AuthenticationService{
+public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
-    MyUserDetailsService myUserDetailsService;
+    private CustomUserDetailsService myUserDetailsService;
 
     @Autowired
-    JwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Override
-    public String createAuthenticationToken(AuthenticationRequest authenticationRequest) throws Exception {
+    public AuthenticationResponse createAuthenticationToken(AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
@@ -31,6 +32,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
 
         UserDetails userDetails = myUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        return jwtUtil.generateToken(userDetails);
+        return new AuthenticationResponse( jwtUtil.generateToken(userDetails));
     }
 }
+
+
+

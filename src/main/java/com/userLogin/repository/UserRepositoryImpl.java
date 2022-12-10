@@ -13,7 +13,13 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String USER_TABLE_NAME = "user";
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public void createUser(CustomUser customUser) {
+        String sql = "INSERT INTO " + USER_TABLE_NAME + " (username, password, roles, permissions) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions());
+    }
 
     @Override
     public CustomUser findUserByUsername(String username) {
@@ -25,3 +31,5 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 }
+
+

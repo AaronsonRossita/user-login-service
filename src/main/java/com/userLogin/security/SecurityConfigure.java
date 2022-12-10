@@ -17,14 +17,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyUserDetailsService myUserDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(myUserDetailsService);
+        auth.userDetailsService(customUserDetailsService);
     }
 
     @Override
@@ -32,6 +32,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .headers().frameOptions().disable()
                 .authorizeRequests().antMatchers("/api/public/authenticate").permitAll()
+                .antMatchers("/api/public/user/create").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -46,3 +47,5 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 }
+
+

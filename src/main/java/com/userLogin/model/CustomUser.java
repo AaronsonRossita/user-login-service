@@ -1,9 +1,5 @@
 package com.userLogin.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class CustomUser {
 
     private Long id;
@@ -51,19 +47,5 @@ public class CustomUser {
 
     public String getPermissions() {
         return permissions;
-    }
-
-    public List<String> getRoleList(){
-        if(this.roles.length() > 0){
-            return Arrays.asList(this.roles.split(","));
-        }
-        return new ArrayList<>();
-    }
-
-    public List<String> getPermissionList(){
-        if(this.permissions.length() > 0){
-            return Arrays.asList(this.permissions.split(","));
-        }
-        return new ArrayList<>();
     }
 }

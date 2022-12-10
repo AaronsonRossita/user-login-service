@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
 
     @PostMapping("/authenticate")
@@ -23,8 +23,9 @@ public class AuthenticationController {
         try{
             return ResponseEntity.ok(authenticationService.createAuthenticationToken(authenticationRequest));
         } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("Incorrect Username Or Password");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Incorrect Username Or Password");
         }
     }
 }
+
+

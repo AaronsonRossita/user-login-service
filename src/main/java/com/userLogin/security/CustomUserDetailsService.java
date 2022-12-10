@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
@@ -22,7 +22,8 @@ public class MyUserDetailsService implements UserDetailsService {
         if(customUser == null){
             throw new UsernameNotFoundException("The provided username can't be found");
         }
-
         return User.withDefaultPasswordEncoder().username(customUser.getUsername()).password(customUser.getPassword()).roles().build();
     }
 }
+
+

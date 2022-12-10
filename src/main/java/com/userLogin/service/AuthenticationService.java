@@ -1,7 +1,8 @@
 package com.userLogin.service;
 
 import com.userLogin.security.model.AuthenticationRequest;
+import com.userLogin.security.model.AuthenticationResponse;
 
 public interface AuthenticationService {
-    String createAuthenticationToken(AuthenticationRequest authenticationRequest) throws Exception;
+    AuthenticationResponse createAuthenticationToken(AuthenticationRequest authenticationRequest) throws Exception;
 }
