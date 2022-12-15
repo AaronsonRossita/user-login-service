@@ -1,5 +1,7 @@
 package com.userLogin.controller;
 
+import com.userLogin.model.TestResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,14 +10,14 @@ public class PublicRestApiController {
 
     @GetMapping("test1")
     @CrossOrigin
-    public String test1(){
-        return "API Test 1";
+    public ResponseEntity<?> test1(){
+        return ResponseEntity.ok(new TestResponse("API Test 1"));
     }
 
-    @GetMapping("test2")
     @CrossOrigin
-    public String test2(){
-        return "API Test 2";
+    @GetMapping("test2")
+    public TestResponse test2(){
+        return new TestResponse("API Test 1");
     }
 }
 
