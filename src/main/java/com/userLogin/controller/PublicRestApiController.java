@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/public")
 public class PublicRestApiController {
 
-    @GetMapping("test1")
+    @GetMapping("/test1")
     @CrossOrigin
     public ResponseEntity<?> test1(){
         return ResponseEntity.ok(new TestResponse("API Test 1"));
     }
 
     @CrossOrigin
-    @GetMapping("test2")
-    public TestResponse test2(){
-        return new TestResponse("API Test 1");
+    @GetMapping("/test2")
+    public ResponseEntity<?> test2(){
+        return ResponseEntity.ok(new TestResponse("API Test 1"));
     }
 }
 
